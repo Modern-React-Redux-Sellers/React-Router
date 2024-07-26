@@ -1,11 +1,20 @@
 import {useLoaderData} from "react-router-dom";
 import {SearchLoaderResults} from "./searchLoader";
+import PackageListItem from "../../components/PackageListItem";
 
 export default function SearchPage() {
     //used to retrieve data from loader function from App.tsx
-    const data = useLoaderData() as SearchLoaderResults;
+    const {searchResults} = useLoaderData() as SearchLoaderResults;
 
-    console.log(data);
+    const renderedResults = searchResults.map((result) => {
+        return <PackageListItem pack={result} key={result.name}/>
+    })
 
-    return <div>Search Page!</div>
+
+    return <div>
+        <h1 className="text-2xl font-bold my-6">Search Results</h1>
+        <div className="space-y-4 mt-4">
+            {renderedResults}
+        </div>
+    </div>
 }
